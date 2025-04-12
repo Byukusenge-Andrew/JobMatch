@@ -1,0 +1,73 @@
+<div class="employer-list-container">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a routerLink="/">Home</a>
+    <span>/</span>
+    <span class="current">Find Employers</span>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-bar">
+      <div class="search-input">
+        <i class="fas fa-search"></i>
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search by: Job title, Position, Keyword..." (input)="onSearch()">
+      </div>
+      <div class="location-input">
+        <i class="fas fa-map-marker-alt"></i>
+        <input type="text" [(ngModel)]="locationQuery" placeholder="City, state or zip code" (input)="onSearch()">
+      </div>
+      <button class="find-btn" (click)="onSearch()">Find Job</button>
+    </div>
+
+    <!-- Popular Searches -->
+    <div class="popular-searches">
+      <span>Popular searches:</span>
+      <div class="search-tags">
+        <a *ngFor="let tag of popularSearches" (click)="onPopularSearch(tag)">{{tag}}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Employer Grid -->
+  <div class="employer-grid">
+    <div class="employer-card" *ngFor="let employer of employers">
+      <div class="employer-logo">
+        <img [src]="employer.logo" [alt]="employer.name + ' logo'">
+        <span class="featured-tag" *ngIf="employer.featured">Featured</span>
+      </div>
+      <div class="employer-info">
+        <h3>{{employer.name}}</h3>
+        <div class="location">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>{{employer.location}}</span>
+        </div>
+      </div>
+      <div class="open-positions">
+        <a [routerLink]="['/employers', employer.id, 'jobs']">
+          Open Position ({{employer.openPositions}})
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <div class="page-numbers">
+      <button *ngFor="let page of getPageNumbers()"
+              [class.active]="page === currentPage"
+              [class.ellipsis]="page === -1"
+              [disabled]="page === -1"
+              (click)="onPageChange(page)">
+        <ng-container *ngIf="page !== -1">{{page}}</ng-container>
+        <ng-container *ngIf="page === -1">...</ng-container>
+      </button>
+    </div>
+    <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+</div>

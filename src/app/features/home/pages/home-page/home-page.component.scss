@@ -1,0 +1,52 @@
+/* Section spacing and transitions */
+:host {
+  display: block;
+}
+
+:host ::ng-deep {
+  /* Add consistent section margins */
+  app-hero,
+  app-job-categories,
+  app-how-it-works,
+  app-popular-categories,
+  app-featured-jobs,
+  app-testimonials {
+    display: block;
+    margin-bottom: 0;
+  }
+
+  /* Create alternating section backgrounds */
+  app-hero { background-color: #fff; }
+  app-job-categories { background-color: #f9fafb; }
+  app-how-it-works { background-color: #fff; }
+  app-popular-categories { background-color: #f9fafb; }
+  app-featured-jobs { background-color: #fff; }
+  app-testimonials { background-color: #f9fafb; }
+
+  /* Add subtle divider between sections */
+  app-job-categories::before,
+  app-popular-categories::before,
+  app-testimonials::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(203, 213, 225, 0.7), transparent);
+    margin: 0 10%;
+  }
+
+  /* Remove any double padding between sections */
+  app-job-categories .job-categories,
+  app-how-it-works .how-it-works,
+  app-popular-categories .popular-categories,
+  app-featured-jobs .featured-jobs,
+  app-testimonials .testimonials {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* Give the CTA component some breathing room */
+  app-call-to-action {
+    display: block;
+    padding: 2rem 0;
+  }
+}

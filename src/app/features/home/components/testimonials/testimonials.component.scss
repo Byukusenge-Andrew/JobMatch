@@ -1,0 +1,218 @@
+.testimonials {
+  padding: 5rem 0;
+  background-color: #f9fafb;
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(37, 99, 235, 0.01) 100%);
+    z-index: 0;
+  }
+
+  &::before {
+    top: -100px;
+    left: -150px;
+  }
+
+  &::after {
+    bottom: -100px;
+    right: -150px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background-color: #2563eb;
+      }
+    }
+
+    p {
+      font-size: 1.125rem;
+      color: #6b7280;
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+    }
+  }
+
+  .testimonials-container {
+    max-width: 800px;
+    margin: 0 auto;
+
+    .testimonial-card {
+      background-color: white;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      padding: 2.5rem;
+      position: relative;
+      transition: all 0.4s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+      }
+
+      .quote-mark {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        color: #e5e7eb;
+        font-size: 4rem;
+        line-height: 1;
+        font-family: serif;
+      }
+
+      .rating {
+        display: flex;
+        margin-bottom: 1rem;
+
+        svg {
+          width: 20px;
+          height: 20px;
+          color: #f59e0b;
+          margin-right: 2px;
+        }
+      }
+
+      .testimonial-text {
+        font-size: 1.125rem;
+        color: #4b5563;
+        line-height: 1.75;
+        margin-bottom: 2rem;
+        font-style: italic;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+
+        .author-avatar {
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: 1rem;
+          border: 3px solid #f3f4f6;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .author-info {
+          .author-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+          }
+
+          .author-position {
+            font-size: 0.875rem;
+            color: #6b7280;
+          }
+        }
+      }
+    }
+  }
+
+  .testimonial-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.5rem;
+
+    .control-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: white;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      color: #4b5563;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #2563eb;
+        color: white;
+        border-color: #2563eb;
+        transform: translateY(-2px);
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      &.prev-arrow {
+        margin-right: 1.5rem;
+      }
+
+      &.next-arrow {
+        margin-left: 1.5rem;
+      }
+    }
+  }
+
+  .testimonial-nav {
+    display: flex;
+    gap: 0.75rem;
+
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #e5e7eb;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.active {
+        background-color: #2563eb;
+        width: 30px;
+        border-radius: 6px;
+      }
+
+      &:hover:not(.active) {
+        background-color: #d1d5db;
+        transform: scale(1.2);
+      }
+    }
+  }
+}

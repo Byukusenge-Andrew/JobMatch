@@ -1,0 +1,52 @@
+<div class="verification-container">
+  <div class="verification-form-container">
+    <div class="brand">
+      <a routerLink="/">
+        <img src="assets/images/logo.png" alt="JobMatch Logo" class="logo">
+      </a>
+    </div>
+
+    <div class="form-header">
+      <h1>Email Verification</h1>
+      <p>We've sent an verification to <span class="email">{{email}}</span> to verify your email address and activate your account.</p>
+    </div>
+
+    <form [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
+   
+      <div class="error-alert" *ngIf="errorMessage">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          id="verificationCode"
+          formControlName="verificationCode"
+          placeholder="Verification Code"
+          class="verification-input"
+        >
+        <div class="error-message" *ngIf="verificationForm.get('verificationCode')?.touched && verificationForm.get('verificationCode')?.errors?.['required']">
+          Verification code is required
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="verificationForm.invalid || isLoading">
+        <span *ngIf="!isLoading">Verify My Account</span>
+        <span *ngIf="isLoading" class="spinner"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+
+      <div class="resend-link">
+        Didn't receive any code? <a href="javascript:void(0)" (click)="resendCode()">Resend</a>
+      </div>
+    </form>
+  </div>
+</div>

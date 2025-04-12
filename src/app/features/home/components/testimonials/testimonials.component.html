@@ -1,0 +1,56 @@
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2>What Our Users Say</h2>
+      <p>Discover how JobMatch has helped thousands find their perfect career match and how companies have discovered exceptional talent.</p>
+    </div>
+
+    <div class="testimonials-container">
+      <!-- Display the current testimonial -->
+      <div class="testimonial-card">
+        <div class="quote-mark">"</div>
+        <div class="rating">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </ng-container>
+        </div>
+        <p class="testimonial-text">{{ testimonials[currentTestimonial].text }}</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <img [src]="testimonials[currentTestimonial].avatar" [alt]="testimonials[currentTestimonial].name">
+          </div>
+          <div class="author-info">
+            <h4 class="author-name">{{ testimonials[currentTestimonial].name }}</h4>
+            <p class="author-position">{{ testimonials[currentTestimonial].position }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-controls">
+      <button class="control-arrow prev-arrow" (click)="prevTestimonial()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="testimonial-nav">
+        <ng-container *ngFor="let testimonial of testimonials; let i = index">
+          <button
+            class="nav-dot"
+            [class.active]="currentTestimonial === i"
+            (click)="setCurrentTestimonial(i)">
+          </button>
+        </ng-container>
+      </div>
+
+      <button class="control-arrow next-arrow" (click)="nextTestimonial()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>

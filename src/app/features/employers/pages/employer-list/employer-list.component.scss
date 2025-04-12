@@ -1,0 +1,257 @@
+.employer-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+  color: #64748b;
+
+  a {
+    color: #64748b;
+    text-decoration: none;
+
+    &:hover {
+      color: #2563eb;
+    }
+  }
+
+  span {
+    &.current {
+      color: #1e293b;
+      font-weight: 500;
+    }
+  }
+}
+
+.search-section {
+  margin-bottom: 2rem;
+
+  .search-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .search-input,
+    .location-input {
+      position: relative;
+      flex: 1;
+
+      input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+
+        &:focus {
+          outline: none;
+          border-color: #3b82f6;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+      }
+
+      i {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+      }
+    }
+
+    .find-btn {
+      padding: 0.75rem 1.5rem;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
+    }
+  }
+}
+
+.popular-searches {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: #64748b;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      padding: 0.25rem 0.75rem;
+      background-color: #eff6ff;
+      border-radius: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #dbeafe;
+      }
+    }
+  }
+}
+
+.employer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.employer-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: all 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .employer-logo {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    margin-bottom: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 1rem;
+    }
+
+    .featured-tag {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      background-color: #fef3c7;
+      color: #92400e;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 1rem;
+    }
+  }
+
+  .employer-info {
+    text-align: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: #64748b;
+      font-size: 0.875rem;
+
+      i {
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  .open-positions {
+    text-align: center;
+
+    a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #eff6ff;
+      color: #2563eb;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 0.375rem;
+
+      &:hover {
+        background-color: #dbeafe;
+      }
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.375rem;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #64748b;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background-color: #f8fafc;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      background-color: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    &.ellipsis {
+      border: none;
+      pointer-events: none;
+    }
+  }
+
+  .page-numbers {
+    display: flex;
+    gap: 0.5rem;
+  }
+}

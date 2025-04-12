@@ -1,0 +1,142 @@
+<div class="job-list-container">
+  <div class="search-header">
+    <div class="search-bar">
+      <div class="search-input">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Job title or keyword" [(ngModel)]="searchQuery" (input)="onSearch()">
+      </div>
+      <div class="location-input">
+        <i class="fas fa-map-marker-alt"></i>
+        <input type="text" placeholder="Location" [(ngModel)]="locationQuery" (input)="onSearch()">
+      </div>
+      <button class="filters-btn" (click)="toggleFilters()">
+        <i class="fas fa-filter"></i>
+        Filters
+      </button>
+      <button class="find-job-btn" (click)="onSearch()">
+        <i class="fas fa-search"></i>
+        Find Job
+      </button>
+    </div>
+    <div class="popular-searches">
+      <span>Popular:</span>
+      <div class="search-tags">
+        <a *ngFor="let tag of popularSearches" (click)="onPopularSearch(tag)">{{tag}}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="overlay" [class.show]="showFilters" (click)="toggleFilters()"></div>
+    <aside class="filters-sidebar" [class.show]="showFilters">
+      <div class="filters-header">
+        <h3>Filters</h3>
+        <div class="filters-actions">
+          <button class="clear-filters" (click)="clearFilters()">Clear all</button>
+          <button class="close-filters" (click)="toggleFilters()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="filters-section">
+        <h4>Job Type</h4>
+        <div class="filter-options">
+          <label class="filter-option" *ngFor="let type of jobTypes">
+            <input type="checkbox" [checked]="isFilterSelected('jobType', type.value)" (change)="toggleFilter('jobType', type.value)">
+            {{type.label}}
+            <span class="option-count">({{type.count}})</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="filters-section">
+        <h4>Experience Level</h4>
+        <div class="filter-options">
+          <label class="filter-option" *ngFor="let level of experienceLevels">
+            <input type="checkbox" [checked]="isFilterSelected('experience', level.value)" (change)="toggleFilter('experience', level.value)">
+            {{level.label}}
+            <span class="option-count">({{level.count}})</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="filters-section">
+        <h4>Salary Range</h4>
+        <div class="filter-options">
+          <label class="filter-option" *ngFor="let range of salaryRanges">
+            <input type="checkbox" [checked]="isFilterSelected('salary', range.value)" (change)="toggleFilter('salary', range.value)">
+            {{range.label}}
+            <span class="option-count">({{range.count}})</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="filters-section">
+        <h4>Company Size</h4>
+        <div class="filter-options">
+          <label class="filter-option" *ngFor="let size of companySizes">
+            <input type="checkbox" [checked]="isFilterSelected('companySize', size.value)" (change)="toggleFilter('companySize', size.value)">
+            {{size.label}}
+            <span class="option-count">({{size.count}})</span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <div class="job-cards">
+      <div class="results-header">
+        <span>{{totalJobs}} jobs found</span>
+        <div class="sort-by">
+          <span>Sort by:</span>
+          <select [(ngModel)]="sortBy" (change)="onSortChange()">
+            <option value="relevance">Most Relevant</option>
+            <option value="recent">Most Recent</option>
+            <option value="salary-high">Highest Salary</option>
+            <option value="salary-low">Lowest Salary</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="job-card" *ngFor="let job of jobs">
+        <div class="job-card-content">
+          <div class="company-logo">
+            <img [src]="job.companyLogo" [alt]="job.companyName + ' logo'">
+          </div>
+          <div class="job-info">
+            <h3 class="job-title">{{job.title}}</h3>
+            <div class="company-info">
+              <span>{{job.companyName}}</span>
+              <span>{{job.location}}</span>
+            </div>
+            <div class="job-meta">
+              <span class="job-type" [class]="job.type.toLowerCase()">{{job.type}}</span>
+              <span class="experience">{{job.experience}}</span>
+              <span class="posted-date">Posted {{job.postedDate}}</span>
+              <span class="salary">{{job.salary}}</span>
+            </div>
+          </div>
+          <button class="save-job" (click)="toggleSaveJob(job)">
+            <i class="fas" [class.fa-bookmark]="job.saved" [class.fa-bookmark-o]="!job.saved"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="pagination" *ngIf="totalPages > 1">
+        <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="page-numbers">
+          <button *ngFor="let page of getPageNumbers()"
+                  [class.active]="page === currentPage"
+                  (click)="onPageChange(page)">
+            {{page}}
+          </button>
+        </div>
+        <button [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
