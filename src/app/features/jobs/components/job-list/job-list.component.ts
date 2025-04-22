@@ -5,10 +5,18 @@ import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { JobService, Job } from '../../services/job.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MockJobsInterceptor } from '../../interceptors/mock-jobs.interceptor';
 
 interface FilterOption {
   value: string;
   label: string;
+  count: number;
+}
+
+interface PopularSearch {
+  id: number;
+  term: string;
   count: number;
 }
 
@@ -51,6 +59,7 @@ export class JobListComponent implements OnInit, OnDestroy {
   companySizes: FilterOption[] = [];
   popularSearches: string[] = [];
   isLoading = false;
+  savedJobs = new Set<number>();
 
   constructor(private jobService: JobService) {
     // Setup search debounce
@@ -64,6 +73,10 @@ export class JobListComponent implements OnInit, OnDestroy {
         this.currentPage = 1;
         this.loadJobs();
       });
+
+    this.jobService.savedJobs$.subscribe(savedJobs => {
+      this.savedJobs = savedJobs;
+    });
   }
 
   ngOnInit(): void {
@@ -83,19 +96,34 @@ export class JobListComponent implements OnInit, OnDestroy {
       location: this.locationQuery,
       page: this.currentPage,
       limit: this.itemsPerPage,
-      sortBy: this.sortBy,
-      filters: this.selectedFilters
+      filters: this.selectedFilters,
+      sortBy: this.sortBy as 'relevance' | 'recent' | 'salary-high' | 'salary-low' | undefined
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (response) => {
         this.jobs = response.jobs;
         this.totalJobs = response.total;
-        this.jobTypes = response.filters.jobTypes;
-        this.experienceLevels = response.filters.experienceLevels;
-        this.salaryRanges = response.filters.salaryRanges;
-        this.companySizes = response.filters.companySizes;
-        this.calculatePagination();
+        this.totalPages = Math.ceil(this.totalJobs / this.itemsPerPage);
+
+        // Transform filter options to include labels
+        this.jobTypes = response.filters.jobTypes.map(option => ({
+          ...option,
+          label: option.value.charAt(0).toUpperCase() + option.value.slice(1)
+        }));
+        this.experienceLevels = response.filters.experienceLevels.map(option => ({
+          ...option,
+          label: option.value.charAt(0).toUpperCase() + option.value.slice(1)
+        }));
+        this.salaryRanges = response.filters.salaryRanges.map(option => ({
+          ...option,
+          label: option.value
+        }));
+        this.companySizes = response.filters.companySizes.map(option => ({
+          ...option,
+          label: option.value
+        }));
+
         this.isLoading = false;
       },
       error: (error) => {
@@ -109,8 +137,8 @@ export class JobListComponent implements OnInit, OnDestroy {
     this.jobService.getPopularSearches()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (searches) => {
-          this.popularSearches = searches;
+        next: (searches: PopularSearch[]) => {
+          this.popularSearches = searches.map(search => search.term);
         },
         error: (error) => {
           console.error('Error loading popular searches:', error);
@@ -166,21 +194,22 @@ export class JobListComponent implements OnInit, OnDestroy {
   }
 
   toggleSaveJob(job: Job): void {
-    if (!job.id) return;
+    const isSaved = this.savedJobs.has(job.id);
+    const action$ = isSaved ? this.jobService.unsaveJob(job.id) : this.jobService.saveJob(job.id);
 
-    const action = job.saved ?
-      this.jobService.unsaveJob(job.id) :
-      this.jobService.saveJob(job.id);
-
-    action.pipe(takeUntil(this.destroy$))
+    action$.pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
-          job.saved = !job.saved;
+          // The savedJobs$ observable will automatically update the UI
         },
-        error: (error) => {
-          console.error('Error toggling job save status:', error);
+        error: (error: Error) => {
+          console.error('Error toggling save job:', error);
         }
       });
+  }
+
+  isJobSaved(jobId: number): boolean {
+    return this.savedJobs.has(jobId);
   }
 
   onPageChange(page: number): void {
@@ -221,7 +250,9 @@ export class JobListComponent implements OnInit, OnDestroy {
     return pages;
   }
 
-  private calculatePagination(): void {
-    this.totalPages = Math.ceil(this.totalJobs / this.itemsPerPage);
+  handleImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    const companyInitial = img.alt.split(' ')[0].charAt(0) || 'C';
+    img.src = `https://placehold.co/100x100?text=${companyInitial}`;
   }
 }

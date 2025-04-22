@@ -61,7 +61,7 @@ export class SignUpComponent implements OnInit {
   onSubmit(): void {
     if (this.signUpForm.valid) {
       console.log('Form submitted', this.signUpForm.value);
-      // Here you would typically call your auth service to register the user
+      
     } else {
       // Mark all fields as touched to trigger validation messages
       Object.keys(this.signUpForm.controls).forEach(key => {

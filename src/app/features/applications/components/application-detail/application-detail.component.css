@@ -1,0 +1,129 @@
+.application-detail-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.application-detail-container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.application-detail-container .header .back-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  color: #007bff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.application-detail-container .header .back-button:hover {
+  color: #0056b3;
+}
+.application-detail-container .header .status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.application-detail-container .header .status-badge.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+.application-detail-container .header .status-badge.interview {
+  background: #d4edda;
+  color: #155724;
+}
+.application-detail-container .header .status-badge.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+.application-detail-container .content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+.application-detail-container .content .company-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.application-detail-container .content .company-section img {
+  width: 100px;
+  height: 100px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-bottom: 1rem;
+}
+.application-detail-container .content .company-section h2 {
+  margin: 0;
+  color: #333;
+}
+.application-detail-container .content .company-section h3 {
+  margin: 0.5rem 0;
+  color: #666;
+}
+.application-detail-container .content .company-section .location {
+  color: #888;
+}
+.application-detail-container .content .timeline-section {
+  margin-bottom: 3rem;
+}
+.application-detail-container .content .timeline-section .timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+.application-detail-container .content .timeline-section .timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e9ecef;
+}
+.application-detail-container .content .timeline-section .timeline .timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.application-detail-container .content .timeline-section .timeline .timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #007bff;
+  border: 2px solid white;
+}
+.application-detail-container .content .timeline-section .timeline .timeline-item .date {
+  color: #888;
+  font-size: 0.9rem;
+}
+.application-detail-container .content .timeline-section .timeline .timeline-item .event h4 {
+  margin: 0.5rem 0;
+  color: #333;
+}
+.application-detail-container .content .timeline-section .timeline .timeline-item .event p {
+  margin: 0;
+  color: #666;
+}
+.application-detail-container .content .details-section .detail-item {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.application-detail-container .content .details-section .detail-item .label {
+  width: 120px;
+  color: #666;
+  font-weight: 500;
+}
+.application-detail-container .content .details-section .detail-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+.application-detail-container .content .details-section .detail-item a:hover {
+  text-decoration: underline;
+}
+/*# sourceMappingURL=application-detail.component.css.map */

@@ -2,7 +2,7 @@
   <div class="signup-form-container">
     <div class="brand">
       <a routerLink="/">
-        <img src="assets/images/logo.png" alt="JobMatch Logo" class="logo">
+        <img src="newlogo.svg" alt="JobMatch Logo" class="logo">
       </a>
     </div>
 
@@ -77,7 +77,7 @@
             formControlName="password"
             placeholder="Create a password"
           >
-          <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+          <button title="Toggle password visibility" type="button" class="toggle-password" (click)="togglePasswordVisibility()">
             <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
               <circle cx="12" cy="12" r="3"></circle>
@@ -105,7 +105,7 @@
             formControlName="confirmPassword"
             placeholder="Confirm your password"
           >
-          <button type="button" class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+          <button title="Toggle password visibility" type="button" class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
             <svg *ngIf="!showConfirmPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
               <circle cx="12" cy="12" r="3"></circle>
@@ -128,7 +128,7 @@
         <label class="checkbox-container">
           <input type="checkbox" formControlName="agreeToTerms">
           <span class="checkmark"></span>
-          I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
+          I agree to the <a routerLink="/terms">Terms of Service</a> and <a routerLink="/privacy">Privacy Policy</a>
         </label>
         <div class="error-message" *ngIf="signUpForm.get('agreeToTerms')?.touched && signUpForm.get('agreeToTerms')?.errors?.['required']">
           You must agree to the terms and conditions
@@ -163,7 +163,7 @@
     </form>
   </div>
 
-  <div class="signup-image" style="background-image: url('assets/images/interview.jpg')">
+  <div class="signup-image" style="background-image: url('https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg')">
     <div class="overlay">
       <div class="image-content">
         <h2>Join the #1 Job Matching Platform</h2>

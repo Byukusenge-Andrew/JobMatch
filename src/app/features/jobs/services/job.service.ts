@@ -5,50 +5,59 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 
 export interface Job {
-  id?: number;
+  id: number;
   title: string;
+  companyId: number;
   companyName: string;
-  location: string;
-  type: 'FULL-TIME' | 'PART-TIME' | 'INTERNSHIP' | 'CONTRACT' | 'REMOTE';
-  salary: string;
   companyLogo: string;
+  companyDescription: string;
+  companyWebsite: string;
+  companySize: string;
+  location: string;
+  type: string;
+  category: string;
+  salary: string;
   experience: string;
   postedDate: string;
+  expiryDate: string;
+  description: string;
+  requirements: string[];
+  responsibilities: string[];
+  benefits: { icon: string; title: string; description: string }[];
+  featured?: boolean;
   saved?: boolean;
 }
 
-export interface JobSearchParams {
+export interface JobsResponse {
+  jobs: Job[];
+  total: number;
+  filters: {
+    jobTypes: { value: string; count: number }[];
+    experienceLevels: { value: string; count: number }[];
+    salaryRanges: { value: string; count: number }[];
+    companySizes: { value: string; count: number }[];
+  };
+}
+
+export interface SearchJobsParams {
   query?: string;
   location?: string;
   page?: number;
   limit?: number;
-  sortBy?: string;
   filters?: {
     jobType?: string[];
     experience?: string[];
     salary?: string[];
     companySize?: string[];
   };
-}
-
-export interface JobSearchResponse {
-  jobs: Job[];
-  total: number;
-  page: number;
-  limit: number;
-  filters: {
-    jobTypes: { value: string; label: string; count: number }[];
-    experienceLevels: { value: string; label: string; count: number }[];
-    salaryRanges: { value: string; label: string; count: number }[];
-    companySizes: { value: string; label: string; count: number }[];
-  };
+  sortBy?: 'relevance' | 'recent' | 'salary-high' | 'salary-low';
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
-  private apiUrl = `${environment.apiUrl}/jobs`;
+  private apiUrl = environment.apiUrl;
   private savedJobsSubject = new BehaviorSubject<Set<number>>(new Set());
   savedJobs$ = this.savedJobsSubject.asObservable();
 
@@ -56,49 +65,48 @@ export class JobService {
     this.loadSavedJobs();
   }
 
-  searchJobs(params: JobSearchParams): Observable<JobSearchResponse> {
-    let httpParams = new HttpParams()
-      .set('page', params.page?.toString() || '1')
-      .set('limit', params.limit?.toString() || '10');
+  searchJobs(params: SearchJobsParams): Observable<JobsResponse> {
+    let httpParams = new HttpParams();
 
     if (params.query) {
       httpParams = httpParams.set('query', params.query);
     }
-
     if (params.location) {
       httpParams = httpParams.set('location', params.location);
     }
-
+    if (params.page) {
+      httpParams = httpParams.set('page', params.page.toString());
+    }
+    if (params.limit) {
+      httpParams = httpParams.set('limit', params.limit.toString());
+    }
+    if (params.filters) {
+      if (params.filters.jobType) {
+        httpParams = httpParams.set('jobType', params.filters.jobType.join(','));
+      }
+      if (params.filters.experience) {
+        httpParams = httpParams.set('experience', params.filters.experience.join(','));
+      }
+      if (params.filters.salary) {
+        httpParams = httpParams.set('salary', params.filters.salary.join(','));
+      }
+      if (params.filters.companySize) {
+        httpParams = httpParams.set('companySize', params.filters.companySize.join(','));
+      }
+    }
     if (params.sortBy) {
       httpParams = httpParams.set('sortBy', params.sortBy);
     }
 
-    if (params.filters) {
-      Object.entries(params.filters).forEach(([key, values]) => {
-        if (values && values.length > 0) {
-          httpParams = httpParams.set(key, values.join(','));
-        }
-      });
-    }
-
-    return this.http.get<JobSearchResponse>(`${this.apiUrl}/search`, { params: httpParams })
-      .pipe(
-        map(response => ({
-          ...response,
-          jobs: response.jobs.map(job => ({
-            ...job,
-            saved: this.savedJobsSubject.value.has(job.id!)
-          }))
-        }))
-      );
+    return this.http.get<JobsResponse>(`${this.apiUrl}/jobs/search`, { params: httpParams });
   }
 
-  getPopularSearches(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiUrl}/popular-searches`);
+  getPopularSearches(): Observable<{ id: number; term: string; count: number }[]> {
+    return this.http.get<{ id: number; term: string; count: number }[]>(`${this.apiUrl}/jobs/popular-searches`);
   }
 
   saveJob(jobId: number): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/${jobId}/save`, {}).pipe(
+    return this.http.post<void>(`${this.apiUrl}/jobs/${jobId}/save`, {}).pipe(
       map(() => {
         const currentSaved = new Set(this.savedJobsSubject.value);
         currentSaved.add(jobId);
@@ -109,7 +117,7 @@ export class JobService {
   }
 
   unsaveJob(jobId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${jobId}/save`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/jobs/${jobId}/save`).pipe(
       map(() => {
         const currentSaved = new Set(this.savedJobsSubject.value);
         currentSaved.delete(jobId);
@@ -120,9 +128,13 @@ export class JobService {
   }
 
   getSavedJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>(`${this.apiUrl}/saved`).pipe(
+    return this.http.get<Job[]>(`${this.apiUrl}/jobs/saved`).pipe(
       map(jobs => jobs.map(job => ({ ...job, saved: true })))
     );
+  }
+
+  getJobById(jobId: number): Observable<Job> {
+    return this.http.get<Job>(`${this.apiUrl}/jobs/${jobId}`);
   }
 
   private loadSavedJobs(): void {
@@ -143,5 +155,10 @@ export class JobService {
     } catch (e) {
       console.error('Error saving jobs to storage:', e);
     }
+  }
+
+  getJobImage(jobId: number): string {
+    // Using placeholder.com for demonstration with a fallback image
+    return `https://picsum.photos/200/200?random=${jobId}` || 'assets/images/default-company-logo.png';
   }
 }

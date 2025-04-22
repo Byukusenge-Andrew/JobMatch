@@ -1,0 +1,141 @@
+<div class="candidate-profile" *ngIf="candidate">
+  <!-- Close Button -->
+  <button title="Close" class="close-btn" routerLink="/candidates">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Header Section -->
+  <div class="profile-header">
+    <div class="profile-info">
+      <img [src]="candidate.avatar" [alt]="candidate.name" class="avatar" alt="Candidate Avatar" (error)="handleImageError($event)" alt>
+      <div class="info-content">
+        <h1>{{candidate.name}}</h1>
+        <p class="title">{{candidate.title}}</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button title="bookmark button" class="bookmark-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </button>
+      <button class="send-mail-btn">Send Mail</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="profile-content">
+    <!-- Left Column -->
+    <div class="main-info">
+      <section class="biography">
+        <h2>Biography</h2>
+        <p>{{candidate.biography}}</p>
+      </section>
+
+      <section class="cover-letter">
+        <h2>Cover Letter</h2>
+        <p>{{candidate.coverLetter}}</p>
+      </section>
+    </div>
+
+    <!-- Right Column -->
+    <div class="side-info">
+      <section class="personal-info">
+        <h3>Personal Information</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Date of Birth</span>
+            <span class="value">{{candidate.dateOfBirth}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Nationality</span>
+            <span class="value">{{candidate.nationality}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Marital Status</span>
+            <span class="value">{{candidate.maritalStatus}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Gender</span>
+            <span class="value">{{candidate.gender}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Experience</span>
+            <span class="value">{{candidate.experience}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Education</span>
+            <span class="value">{{candidate.education}}</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-info">
+        <h3>Contact Information</h3>
+        <div class="info-list">
+          <div class="info-item" *ngIf="candidate.website">
+            <span class="icon">🌐</span>
+            <a [href]="candidate.website" target="_blank">{{candidate.website}}</a>
+          </div>
+          <div class="info-item">
+            <span class="icon">📍</span>
+            <span>{{candidate.location.address}}, {{candidate.location.city}}, {{candidate.location.state}} {{candidate.location.zipCode}}</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">📞</span>
+            <span>{{candidate.contact.phone}}</span>
+          </div>
+          <div class="info-item" *ngIf="candidate.contact.secondaryPhone">
+            <span class="icon">📞</span>
+            <span>{{candidate.contact.secondaryPhone}}</span>
+          </div>
+          <div class="info-item">
+            <span class="icon">📧</span>
+            <a [href]="'mailto:' + candidate.contact.email">{{candidate.contact.email}}</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="social-media">
+        <h3>Social Media</h3>
+        <div class="social-links">
+          <a *ngIf="candidate.socialMedia.facebook" [href]="candidate.socialMedia.facebook" target="_blank" class="social-btn facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a *ngIf="candidate.socialMedia.twitter" [href]="candidate.socialMedia.twitter" target="_blank" class="social-btn twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+          </a>
+          <a *ngIf="candidate.socialMedia.linkedin" [href]="candidate.socialMedia.linkedin" target="_blank" class="social-btn linkedin">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a *ngIf="candidate.socialMedia.github" [href]="candidate.socialMedia.github" target="_blank" class="social-btn github">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="candidate-profile" *ngIf="isLoading">
+  <div class="loading-spinner">Loading...</div>
+</div>
+
+<div class="candidate-profile" *ngIf="error">
+  <div class="error-message">
+    {{error}}
+  </div>
+</div>

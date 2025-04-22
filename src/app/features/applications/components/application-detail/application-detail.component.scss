@@ -1,0 +1,156 @@
+.application-detail-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .back-button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: none;
+      color: #007bff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        color: #0056b3;
+      }
+    }
+
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+
+      &.pending {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      &.interview {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      &.rejected {
+        background: #f8d7da;
+        color: #721c24;
+      }
+    }
+  }
+
+  .content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 2rem;
+
+    .company-section {
+      text-align: center;
+      margin-bottom: 3rem;
+
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        margin-bottom: 1rem;
+      }
+
+      h2 {
+        margin: 0;
+        color: #333;
+      }
+
+      h3 {
+        margin: 0.5rem 0;
+        color: #666;
+      }
+
+      .location {
+        color: #888;
+      }
+    }
+
+    .timeline-section {
+      margin-bottom: 3rem;
+
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 2px;
+          background: #e9ecef;
+        }
+
+        .timeline-item {
+          position: relative;
+          margin-bottom: 1.5rem;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #007bff;
+            border: 2px solid white;
+          }
+
+          .date {
+            color: #888;
+            font-size: 0.9rem;
+          }
+
+          .event {
+            h4 {
+              margin: 0.5rem 0;
+              color: #333;
+            }
+
+            p {
+              margin: 0;
+              color: #666;
+            }
+          }
+        }
+      }
+    }
+
+    .details-section {
+      .detail-item {
+        display: flex;
+        margin-bottom: 1rem;
+
+        .label {
+          width: 120px;
+          color: #666;
+          font-weight: 500;
+        }
+
+        a {
+          color: #007bff;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

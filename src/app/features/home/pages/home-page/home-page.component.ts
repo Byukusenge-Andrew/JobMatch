@@ -6,6 +6,8 @@ import { PopularCategoriesComponent } from '../../components/popular-categories/
 import { FeaturedJobsComponent } from '../../components/featured-jobs/featured-jobs.component';
 import { TestimonialsComponent } from '../../components/testimonials/testimonials.component';
 import { CallToActionComponent } from '../../components/call-to-action/call-to-action.component';
+import { ContactPageComponent } from "../../components/contact/pages/contact-page/contact-page.component";
+
 
 @Component({
   selector: 'app-home-page',
@@ -17,8 +19,9 @@ import { CallToActionComponent } from '../../components/call-to-action/call-to-a
     PopularCategoriesComponent,
     FeaturedJobsComponent,
     TestimonialsComponent,
-    CallToActionComponent
-  ],
+    CallToActionComponent,
+    ContactPageComponent
+],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })

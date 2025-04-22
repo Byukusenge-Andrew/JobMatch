@@ -1,0 +1,107 @@
+.applications-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.applications-container .applications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.applications-container .applications-header h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.applications-container .applications-header .filter-buttons {
+  display: flex;
+  gap: 1rem;
+}
+.applications-container .applications-header .filter-buttons button {
+  padding: 0.5rem 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.applications-container .applications-header .filter-buttons button.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+.applications-container .applications-header .filter-buttons button:hover:not(.active) {
+  background: #f8f9fa;
+}
+.applications-container .applications-list .application-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  gap: 1.5rem;
+}
+.applications-container .applications-list .application-card .company-logo {
+  width: 60px;
+  height: 60px;
+}
+.applications-container .applications-list .application-card .company-logo img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 4px;
+}
+.applications-container .applications-list .application-card .application-info {
+  flex: 1;
+}
+.applications-container .applications-list .application-card .application-info h3 {
+  margin: 0 0 0.5rem;
+  color: #333;
+}
+.applications-container .applications-list .application-card .application-info .company-name {
+  color: #666;
+  margin: 0 0 0.25rem;
+}
+.applications-container .applications-list .application-card .application-info .application-date {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+.applications-container .applications-list .application-card .application-status {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+.applications-container .applications-list .application-card .application-status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+.applications-container .applications-list .application-card .application-status.interview {
+  background: #d4edda;
+  color: #155724;
+}
+.applications-container .applications-list .application-card .application-status.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+.applications-container .applications-list .application-card .application-status.accepted {
+  background: #cce5ff;
+  color: #004085;
+}
+.applications-container .applications-list .application-card .view-details {
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.applications-container .applications-list .application-card .view-details:hover {
+  background: #0056b3;
+}
+/*# sourceMappingURL=application-list.component.css.map */

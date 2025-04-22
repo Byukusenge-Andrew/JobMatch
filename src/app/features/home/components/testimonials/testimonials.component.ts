@@ -15,21 +15,21 @@ export class TestimonialsComponent implements OnInit {
       name: 'Sarah Johnson',
       position: 'Frontend Developer at Airbnb',
       text: 'JobMatch transformed my job search! The AI-powered matching system connected me with opportunities that perfectly aligned with my skills and career goals. Within two weeks, I landed my dream job at a tech company.',
-      avatar: 'assets/images/testimonial-1.jpg',
+      avatar: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=200&h=300&dpr=1',
       rating: 5
     },
     {
       name: 'David Chen',
       position: 'Head of Recruitment at Spotify',
       text: 'As a hiring manager, JobMatch has been a game-changer. The platform\'s detailed candidate profiles and skill matching have saved us countless hours in the recruitment process. We\'ve found exceptional talent that fits our company culture perfectly.',
-      avatar: 'assets/images/testimonial-2.jpg',
+      avatar: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=200&h=300&dpr=1',
       rating: 5
     },
     {
       name: 'Maria Rodriguez',
       position: 'Product Manager at Shopify',
       text: 'I was skeptical about using yet another job platform, but JobMatch exceeded my expectations. The personalized recommendations and intuitive interface made job hunting enjoyable. Three interviews and one job offer later, I\'m now at my ideal company!',
-      avatar: 'assets/images/testimonial-3.jpg',
+      avatar: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=200&h=300&dpr=1',
       rating: 5
     }
   ];

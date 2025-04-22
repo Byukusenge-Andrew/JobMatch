@@ -1,0 +1,31 @@
+<div class="applications-container">
+  <div class="applications-header">
+    <h2>My Applications</h2>
+    <div class="filter-buttons">
+      <button [class.active]="filterStatus === 'all'" (click)="filterApplications('all')">All</button>
+      <button [class.active]="filterStatus === 'pending'" (click)="filterApplications('pending')">Pending</button>
+      <button [class.active]="filterStatus === 'interview'" (click)="filterApplications('interview')">Interview</button>
+      <button [class.active]="filterStatus === 'rejected'" (click)="filterApplications('rejected')">Rejected</button>
+    </div>
+  </div>
+
+  <div class="applications-list">
+    <div class="application-card" *ngFor="let application of getFilteredApplications()">
+      <div class="company-logo">
+        <img alt="image" [src]="application.companyLogo || 'assets/images/placeholder-company.png'"
+             [alt]="application.companyName + ' logo'">
+      </div>
+      <div class="application-info">
+        <h3>{{application.jobTitle}}</h3>
+        <p class="company-name">{{application.companyName}}</p>
+        <p class="application-date">Applied on {{application.applicationDate | date:'mediumDate'}}</p>
+      </div>
+      <div class="application-status" [ngClass]="application.status">
+        {{application.status | titlecase}}
+      </div>
+      <button class="view-details" [routerLink]="['/applications', application.id]">
+        View Details
+      </button>
+    </div>
+  </div>
+</div>

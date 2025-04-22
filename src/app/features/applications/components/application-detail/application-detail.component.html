@@ -1,0 +1,48 @@
+<div class="application-detail-container" *ngIf="application">
+  <div class="header">
+    <button class="back-button" routerLink="/applications">
+      <i class="fas fa-arrow-left"></i> Back to Applications
+    </button>
+    <div class="status-badge" [ngClass]="application?.status?.toLowerCase()">
+      {{application?.status}}
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="company-section">
+      <img alt="image" [src]="application?.companyLogo" [alt]="application?.companyName + ' logo'">
+      <h2>{{application?.jobTitle}}</h2>
+      <h3>{{application?.companyName}}</h3>
+      <p class="location">{{application?.location}}</p>
+    </div>
+
+    <div class="timeline-section">
+      <h3>Application Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item" *ngFor="let event of application?.timeline">
+          <div class="date">{{event.date | date}}</div>
+          <div class="event">
+            <h4>{{event.title}}</h4>
+            <p>{{event.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h3>Application Details</h3>
+      <div class="detail-item">
+        <span class="label">Applied on:</span>
+        <span>{{application?.applicationDate | date}}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Resume:</span>
+        <a [href]="application?.resumeUrl" target="_blank">View Resume</a>
+      </div>
+      <div class="detail-item">
+        <span class="label">Cover Letter:</span>
+        <a [href]="application?.coverLetterUrl" target="_blank">View Cover Letter</a>
+      </div>
+    </div>
+  </div>
+</div>

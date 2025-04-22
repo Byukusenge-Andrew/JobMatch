@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployersRoutingModule } from './employers-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MockEmployersInterceptor } from './interceptors/mock-employers.interceptor';
 
 @NgModule({
   declarations: [],
@@ -9,6 +10,13 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     EmployersRoutingModule,
     HttpClientModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MockEmployersInterceptor,
+      multi: true
+    }
   ]
 })
 export class EmployersModule { }

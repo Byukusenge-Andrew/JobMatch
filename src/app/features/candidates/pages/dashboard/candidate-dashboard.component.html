@@ -1,0 +1,102 @@
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <header class="dashboard-header">
+      <div class="user-welcome">
+        <h1>Welcome back, John!</h1>
+        <p>Here's what's happening with your job applications.</p>
+      </div>
+      <div class="quick-stats">
+        <div class="stat-card">
+          <span class="stat-value">12</span>
+          <span class="stat-label">Total Applications</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">5</span>
+          <span class="stat-label">Shortlisted</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">8</span>
+          <span class="stat-label">Saved Jobs</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="dashboard-content">
+      <!-- Recent Applications -->
+      <section class="applications-section">
+        <div class="section-header">
+          <h2>Recent Applications</h2>
+          <a routerLink="/applications" class="view-all">View All</a>
+        </div>
+        <div class="applications-list">
+          <div *ngFor="let application of recentApplications" class="application-card">
+            <div class="company-logo">
+              <img alt="image" [src]="application.companyLogo" [alt]="application.companyName + ' logo'"
+                  (error)="handleImageError($event)">
+            </div>
+            <div class="application-info">
+              <h3>{{ application.jobTitle }}</h3>
+              <p class="company-name">{{ application.companyName }}</p>
+              <p class="application-date">Applied on {{ application.appliedDate }}</p>
+            </div>
+            <div class="application-status" [class]="application.status">
+              {{ application.status | titlecase }}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Saved Jobs -->
+      <section class="saved-jobs-section">
+        <div class="section-header">
+          <h2>Saved Jobs</h2>
+          <a routerLink="/saved-jobs" class="view-all">View All</a>
+        </div>
+        <div class="saved-jobs-list">
+          <div *ngFor="let job of savedJobs" class="job-card">
+            <div class="company-logo">
+              <img alt="image" [src]="job.companyLogo" [alt]="job.companyName + ' logo'"
+                  (error)="handleImageError($event)">
+            </div>
+            <div class="job-info">
+              <h3>{{ job.title }}</h3>
+              <p class="company-name">{{ job.companyName }}</p>
+              <p class="job-location">{{ job.location }}</p>
+              <div class="job-details">
+                <span class="salary">{{ job.salary }}</span>
+                <span class="expiry">Expires: {{ job.expiryDate }}</span>
+              </div>
+            </div>
+            <div class="job-actions">
+              <button class="apply-btn" (click)="applyForJob(job.id)">Apply Now</button>
+              <button class="remove-btn" (click)="removeSavedJob(job.id)">
+                <i class="material-icons">delete</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile Completion -->
+      <section class="profile-section">
+        <div class="section-header">
+          <h2>Profile Completion</h2>
+          <a routerLink="/profile" class="edit-profile">Edit Profile</a>
+        </div>
+        <div class="profile-completion">
+          <div class="completion-progress">
+            <div class="progress-bar" [style.width.%]="profileCompletion">
+              {{ profileCompletion }}%
+            </div>
+          </div>
+          <div class="completion-tasks">
+            <div *ngFor="let task of completionTasks" class="task-item">
+              <i class="material-icons">{{ task.completed ? 'check_circle' : 'radio_button_unchecked' }}</i>
+              <span>{{ task.name }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
