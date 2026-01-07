@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'candidate',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
